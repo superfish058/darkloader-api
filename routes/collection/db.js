@@ -15,23 +15,27 @@ const webSchema = new mongoose.Schema(
     name: {
       type: String,
       default: "",
-    },
+    }, //网站名称
     url: {
       type: String,
       default: "",
-    },
+    }, //网站网址
     imgId: {
       type: String,
       default: "",
-    },
+    }, //图片id-上传
     img: {
       type: String,
       default: "",
-    },
+    }, //图片地址-线上
     desc: {
       type: String,
       default: "",
-    },
+    }, //网站描述
+    category: {
+      type: String,
+      default: "",
+    }, //所属分类
   },
   {
     // 序列化选项
@@ -50,13 +54,11 @@ const webSchema = new mongoose.Schema(
   }
 );
 
-
 const Web = connection.model("Web", webSchema);
 const model = Web;
 
 // 创建记录
 function add(data) {
-
   const newItem = new Web(data);
   // 保存记录并返回Promise实例
   return newItem.save();
@@ -71,10 +73,10 @@ function findAll() {
 function find(condition) {
   // 根据id查找用户记录，并返回Promise实例
   let keys = Object.keys(condition);
-  let conditionPlus = condition
-  if(keys.includes('id')){
-    conditionPlus["_id"] = condition['id']
-    delete conditionPlus.id
+  let conditionPlus = condition;
+  if (keys.includes("id")) {
+    conditionPlus["_id"] = condition["id"];
+    delete conditionPlus.id;
   }
   return model.find(conditionPlus);
 }

@@ -28,7 +28,7 @@ app.get("/collection/list", async (req, res) => {
     } else {
       data = await findAll();
     }
-    res.status(200).json(setRes(data,undefined,200));
+    res.status(200).json(setRes(data, undefined, 200));
   } catch (error) {
     res.status(500).json({ message: error });
   }
@@ -38,7 +38,7 @@ app.get("/collection/list", async (req, res) => {
 app.post("/collection/add", async (req, res) => {
   try {
     const newModel = await add(req.body); // 保存到数据库
-    res.status(201).json(setRes(newModel, undefined, 200));
+    res.status(200).json(setRes(newModel, undefined, 200));
   } catch (error) {
     res.status(400).json({ message: "添加数据失败.", error });
   }
@@ -67,4 +67,4 @@ app.post("/collection/delete", async (req, res) => {
   }
 });
 
-export default app
+export default app;

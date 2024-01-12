@@ -14,21 +14,7 @@ const getFavicon = async (url) => {
 
   // favicon.ico通常位于网站根目录下
   const faviconUrl = `http://${hostname}/favicon.ico`;
-
-  try {
-    const response = await axios.get(faviconUrl, { responseType: "arraybuffer" });
-
-    if (response.status === 200) {
-      // 返回图标数据，通常是Buffer形式
-      return response.data;
-    } else {
-      console.error(`Failed to fetch favicon from ${faviconUrl}, status code: ${response.status}`);
-      return null;
-    }
-  } catch (error) {
-    console.error(`Error fetching favicon: ${error.message}`);
-    return null;
-  }
+  return faviconUrl;
 };
 
 // 获取uuid
@@ -48,4 +34,7 @@ const getWebIco = async (url) => {
   return ''
 };
 
-export default getWebIco;
+let a = getFavicon('http:baidu.com')
+console.log(a)
+
+export  { getFavicon };
