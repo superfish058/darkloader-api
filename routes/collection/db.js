@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const connection = mongoose.createConnection("mongodb://127.0.0.1/collection", {
+const connection = mongoose.createConnection("mongodb://115.159.150.237/collection", {
   useNewUrlParser: true,
   useUnifiedTopology: true, // 也推荐添加这个选项以使用最新的连接拓扑结构
 });
@@ -42,20 +42,64 @@ const webSchema = new mongoose.Schema(
     toJSON: {
       transform: (doc, ret) => {
         ret.id = ret._id; // 将 _id 复制到 id
-        delete ret._id; // 删除原 _id（可选，取决于是否真的要移除 _id）
+        // delete ret._id; // 删除原 _id（可选，取决于是否真的要移除 _id）
       },
     },
     toObject: {
       transform: (doc, ret) => {
         ret.id = ret._id;
-        delete ret._id;
+        // delete ret._id;
+      },
+    },
+  }
+);
+
+const webCateSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      default: "",
+    }, //分类名称
+  },
+  {
+    // 序列化选项
+    toJSON: {
+      transform: (doc, ret) => {
+        ret.id = ret._id; // 将 _id 复制到 id
+        // delete ret._id; // 删除原 _id（可选，取决于是否真的要移除 _id）
+      },
+    },
+    toObject: {
+      transform: (doc, ret) => {
+        ret.id = ret._id;
+        // delete ret._id;
       },
     },
   }
 );
 
 const Web = connection.model("Web", webSchema);
+const Cate = connection.model("Cate", webCateSchema);
 const model = Web;
+const CateModel = Cate;
+
+// 创建标签记录
+function CateAdd(data) {
+  const newItem = new Cate(data);
+  // 保存记录并返回Promise实例
+  return newItem.save();
+}
+
+// 查询所有记录
+function cateFindAll() {
+  // 查找所有用户记录，并返回Promise实例
+  return CateModel.find({});
+}
+// 根据id查询记录
+function cateFind(condition) {
+  // 根据id查找用户记录，并返回Promise实例
+  return CateModel.find(condition);
+}
 
 // 创建记录
 function add(data) {
@@ -94,4 +138,4 @@ function cancel(_id) {
 }
 
 // 导出定义的库对象
-export { add, findAll, find, update, cancel };
+export { CateAdd, cateFind, cateFindAll, add, findAll, find, update, cancel };

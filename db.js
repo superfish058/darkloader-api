@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const connection = mongoose.createConnection("mongodb://127.0.0.1/userTest", {
+const connection = mongoose.createConnection("mongodb://115.159.150.237/userTest", {
   useNewUrlParser: true,
   useUnifiedTopology: true, // 也推荐添加这个选项以使用最新的连接拓扑结构
 });
