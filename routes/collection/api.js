@@ -1,6 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
-import { CateAdd,cateFind,cateFindAll, add, findAll, find, update, cancel } from "./db.js";
+import { CateAdd, cateFind, cateFindAll, add, findAll, find, update, cancel, CateDelete } from "./db.js";
 
 const app = express();
 
@@ -23,6 +23,17 @@ app.post("/collection/CateAdd", async (req, res) => {
   try {
     const newModel = await CateAdd(req.body); // 保存到数据库
     res.status(200).json(setRes(newModel, undefined, 200));
+  } catch (error) {
+    res.status(400).json({ message: "添加数据失败.", error });
+  }
+});
+
+// 删除标签
+app.post("/collection/CateDelete", async (req, res) => {
+  try {
+    const deleteModel = await CateDelete(req.body.id);
+    if (!deleteModel) return res.status(404).json({ message: "数据未找到" });
+    res.status(200).json(setRes(deleteModel, undefined, 200));
   } catch (error) {
     res.status(400).json({ message: "添加数据失败.", error });
   }

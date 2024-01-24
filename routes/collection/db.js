@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const connection = mongoose.createConnection("mongodb://115.159.150.237/collection", {
+const connection = mongoose.createConnection("mongodb://localhost:27017/collection", {
   useNewUrlParser: true,
   useUnifiedTopology: true, // 也推荐添加这个选项以使用最新的连接拓扑结构
 });
@@ -90,6 +90,11 @@ function CateAdd(data) {
   return newItem.save();
 }
 
+// 删除标签
+function CateDelete(_id) {
+  return CateModel.deleteOne({ _id });
+}
+
 // 查询所有记录
 function cateFindAll() {
   // 查找所有用户记录，并返回Promise实例
@@ -138,4 +143,4 @@ function cancel(_id) {
 }
 
 // 导出定义的库对象
-export { CateAdd, cateFind, cateFindAll, add, findAll, find, update, cancel };
+export { CateAdd, cateFind, cateFindAll, add, findAll, find, update, cancel, CateDelete };
