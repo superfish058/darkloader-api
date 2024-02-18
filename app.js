@@ -1,6 +1,7 @@
 import express from "express";
 import { UserDb } from "./db.js";
 import collection from './routes/collection/api.js'
+import note from "./routes/note/api.js";
 
 const PORT = 3000; // 用于设置端口号
 const app = express(); // 创建一个express应用程序实例
@@ -14,6 +15,7 @@ app.use((req, res, next) => {
 
 
 app.use("/", collection);
+app.use("/", note);
 
 
 
@@ -26,6 +28,8 @@ const setRes = (data, msg = "操作成功", code = 200) => {
   preQuery.data = data;
   return preQuery;
 };
+
+
 
 // 查询列表，id
 app.get("/user/list", async (req, res) => {
