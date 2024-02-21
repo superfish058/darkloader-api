@@ -2,6 +2,7 @@ import express from "express";
 import { UserDb } from "./db.js";
 import collection from './routes/collection/api.js'
 import note from "./routes/note/api.js";
+import schedule from "./routes/schedule/api.js";
 
 const PORT = 3000; // 用于设置端口号
 const app = express(); // 创建一个express应用程序实例
@@ -16,6 +17,7 @@ app.use((req, res, next) => {
 
 app.use("/", collection);
 app.use("/", note);
+app.use("/", schedule);
 
 
 

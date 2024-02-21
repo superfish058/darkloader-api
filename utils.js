@@ -9,7 +9,7 @@ const setRes = (data, msg = "操作成功", code = 200) => {
   return preQuery;
 };
 
-const getList = async (req, res, find, findAll) => {
+const getList = async (req, res, find, findAll, dateNames = []) => {
   try {
     const { query } = req;
     let data = "";
@@ -18,7 +18,20 @@ const getList = async (req, res, find, findAll) => {
     } else {
       data = await findAll();
     }
-    res.status(200).json(setRes(data, undefined, 200));
+    let dataPlus = JSON.parse(JSON.stringify(data));
+    // 格式化日期
+    if (dateNames.length) {
+      dataPlus.forEach((dataItem) => {
+        let keys = Object.keys(dataItem);
+        keys.forEach((item) => {
+          if (dateNames.includes(item)) {
+            dataItem[item] = dataItem[item].slice(0, 10);
+          }
+        });
+      });
+    }
+
+    res.status(200).json(setRes(dataPlus, undefined, 200));
   } catch (error) {
     res.status(500).json({ message: error });
   }
