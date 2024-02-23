@@ -16,9 +16,9 @@ const sliderSchema = new mongoose.Schema(
       type: String,
       default: "",
     }, //标签名称
-    type:{
-      type:Number,
-    }
+    type: {
+      type: Number,
+    },
   },
   {
     // 序列化选项
@@ -47,12 +47,13 @@ const noteSchema = new mongoose.Schema(
       type: String,
       default: "无标题",
     },
-    content:{
-      type:String,
-      default:''
-    }
+    content: {
+      type: String,
+      default: "",
+    },
   },
   {
+    timestamps: true, // 这会添加 createdAt 和 updatedAt 字段
     // 序列化选项
     toJSON: {
       transform: (doc, ret) => {
@@ -69,12 +70,9 @@ const noteSchema = new mongoose.Schema(
   }
 );
 
-
-
 const Slider = connection.model("Slider", sliderSchema);
 const Note = connection.model("Note", noteSchema);
 const model = Slider;
-
 
 // 创建记录
 function addNote(data) {
